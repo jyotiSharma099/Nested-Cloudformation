@@ -1,0 +1,20 @@
+Parameters:
+  ImageId:
+    Type: String
+    Default: 'ami-05fa00d4c63e32376'
+Resources:
+  vpc:
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: https://cloudformation-template-bucket89.s3.amazonaws.com/vpc.yaml
+      Parameters:
+        EnvironmentName: prod
+  ec2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: t2.micro
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          SubnetId: !GetAtt vpc.Outputs.PublicSubnet1

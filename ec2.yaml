@@ -1,0 +1,17 @@
+Parameters: 
+  mySubnet: 
+    Description: Subnet IDs
+    Type: String 
+    Default: "subnet-04e0159cf26abfed2"
+  ImageId:
+    Type: String
+    Default: 'ami-05fa00d4c63e32376'
+Resources:
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: t2.micro
+      NetworkInterfaces:
+         SubnetId: !Ref mySubnet
+
